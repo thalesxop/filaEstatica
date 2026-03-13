@@ -3,13 +3,22 @@
 #include <string.h>
 #include "FilaEstatica.h"
 
-/* Função que mostra os dados da struct de uma fila*/
+/*=========================================================
+    Função que mostra os dados internos da struct
+    Parametros: 
+      1 - fila - ponteiro para a struct da fila
+  =========================================================*/
 void dadosDaFila(TFila const * const fila) {
     printf("\nCapacidade da fila: %d | Itens: %d | Inicio: %d | Fim: %d\n", 
             fila->capacidadeMaxima, fila->quantidadeElementos, fila->indiceInicio, fila->indiceFim);
 }
 
-/* Função que cria e inicializa uma fila*/
+/*=========================================================
+    Função que cria e inicializa uma fila
+    Parametros: 
+      1 - tamanho - define a quantidade de elementos
+      2 - fila - ponteiro para a struct da fila
+  =========================================================*/
 void criarFila(int tamanho, TFila *const fila) {
     fila->capacidadeMaxima = tamanho;
     fila->quantidadeElementos = 0;
@@ -18,7 +27,11 @@ void criarFila(int tamanho, TFila *const fila) {
     fila->vetorDados = (int*) malloc(tamanho * sizeof(int));
 }
 
-/* Função que libera o espaco de memória usado pela fila*/
+/*=========================================================
+    Função que libera o espaco de memória usado pela fila
+    Parametros: 
+      1 - fila - ponteiro para a struct da fila
+  =========================================================*/
 void liberarFila(TFila *const fila) {
     if (fila->vetorDados != NULL) {
         free(fila->vetorDados);
@@ -30,16 +43,36 @@ void liberarFila(TFila *const fila) {
     fila->indiceFim = -1;
 }
 
+/*=========================================================
+    Função que verifica se a fila esta vazia
+    Parametros: 
+      1 - fila - ponteiro para a struct da fila
+    Retorno:
+      != 0 - fila esta vazia
+      0    - fila não esta vazia
+  =========================================================*/
 int filaEstaVazia(TFila const *const fila) {
     return (fila->quantidadeElementos == 0);
 }
 
-/* Função que verifica se a fila esta cheia*/
+/*=========================================================
+    Função que verifica se a fila esta vazia
+    Parametros: 
+      1 - fila - ponteiro para a struct da fila
+    Retorno:
+      != 0 - fila esta vazia
+      0    - fila não esta vazia
+  =========================================================*/
 int filaEstaCheia(TFila const *const fila) {
     return (fila->quantidadeElementos == fila->capacidadeMaxima);
 }
 
-/* Função para incluir um elemento na fila*/
+/*=========================================================
+    Função para incluir um elemento na fila
+    Parametros: 
+      1 - elemento - valor a ser inserido
+      2 - fila - ponteiro para a struct da fila
+  =========================================================*/
 void enfileirar(int elemento, TFila *const fila) { 
     if(filaEstaCheia(fila)) {
         printf("Fila esta cheia\n");
@@ -60,7 +93,11 @@ void enfileirar(int elemento, TFila *const fila) {
     fila->quantidadeElementos++;
 }
 
-/* Função para retirar um elemento da fila*/
+/*=========================================================
+    Função para retirar um elemento da fila
+    Parametros: 
+      1 - fila - ponteiro para a struct da fila
+  =========================================================*/
 void desenfileirar(TFila *const fila) {
     if (filaEstaVazia(fila)) {
         printf("Fila esta vazia\n");
@@ -82,7 +119,13 @@ void desenfileirar(TFila *const fila) {
     }
 }
 
-/* Função para gerar uma string com os dados da fila  */
+/*=========================================================
+    Função para gerar uma string com os dados da fila
+    Parametros: 
+      1 - fila - ponteiro para a struct da fila
+    Retorno:
+      ponteiro para a string gerada
+  =========================================================*/
 char* mostrarFila(TFila const *const fila) {
     if (filaEstaVazia(fila)) {
         return strdup("Fila Vazia");
@@ -101,7 +144,13 @@ char* mostrarFila(TFila const *const fila) {
     return resultado;
 }
 
-/* Função para acessar o primeiro elemento da fila*/
+/*=========================================================
+    Função para acessar o primeiro elemento da fila
+    Parametros: 
+      1 - fila - ponteiro para a struct da fila
+    Retorno:
+      elemento do inicio da fila
+  =========================================================*/
 int acessar(TFila const *const fila) {
     if (filaEstaVazia(fila)) return -1;
     return fila->vetorDados[fila->indiceInicio];
