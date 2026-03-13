@@ -1,29 +1,65 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <string.h>
 #include "FilaEstatica.h"
 
-int main() {
-    TFila minhaFila;
-    int i, valorAleatorio;
-    int capacidade = 10;
+int main(void)
+{
+    TFila filaTeste;
+    
+    //Primeiro Teste
+    printf("Primeiro teste\n");
+    printf("\nFila Declarada\n");
+    
+    criarFila(4, &filaTeste);
+    
+    printf("\nFila Criada e Inicializada\n");
+    dadosDaFila(&filaTeste);
+    
+    char *str = mostrarFila(&filaTeste);
+    printf("\n%s\n", str);
+    free(str);
 
-    /* Semente para gerar numeros diferentes a cada execucao */
-    srand(time(NULL));
+    //Segundo teste
+    printf("Segundo teste\n");
+    enfileirar(105, &filaTeste);
+    enfileirar(205, &filaTeste);
+    enfileirar(305, &filaTeste);
+    enfileirar(405, &filaTeste);
+    
+    printf("Fila esta cheia? %d\n", filaEstaCheia(&filaTeste));
+    
+    enfileirar(505, &filaTeste);
+    
+    printf("\nFila com dados incluidos\n");
+    dadosDaFila(&filaTeste);
+    
+    str = mostrarFila(&filaTeste);
+    printf("\n%s\n", str);
+    free(str);    
+    
+    dadosDaFila(&filaTeste);
 
-    criarFila(capacidade, &minhaFila);
+    //Apagando dados da Fila
+    printf("\nApagando dados da Fila\n");
+    desenfileirar(&filaTeste);
+    desenfileirar(&filaTeste);
+    desenfileirar(&filaTeste);
+    
+    enfileirar(550, &filaTeste);
+    enfileirar(660, &filaTeste);
+    
+    str = mostrarFila(&filaTeste);
+    printf("\n%s\n", str);
+    free(str);  
+    
+    printf("\nFila com dados incluidos/excluidos\n");
+    dadosDaFila(&filaTeste);
 
-    /* Preenchimento da fila com valores aleatorios entre 0 e 99 */
-    for (i = 0; i < capacidade; i++) {
-        valorAleatorio = rand() % 100;
-        enfileirar(valorAleatorio, &minhaFila);
-    }
+    liberarFila(&filaTeste);
 
-    char* strFila = mostrarFila(&minhaFila);
-    printf("Fila Aleatoria: [ %s]\n", strFila);
-    free(strFila);
-
-    liberarFila(&minhaFila);
+    printf("\nProcesso concluido.");
+    getchar(); 
 
     return 0;
 }
